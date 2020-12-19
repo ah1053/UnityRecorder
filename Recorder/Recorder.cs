@@ -60,7 +60,7 @@ namespace Recorder
             }
             SaveButton.onClick.AddListener(() =>
             {
-                Save(fileName);
+                Save(fileName="test);
             });
         }
 
