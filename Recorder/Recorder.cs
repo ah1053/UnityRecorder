@@ -53,14 +53,14 @@ namespace Recorder
         void Start()
         {
             audioSource = GetComponent<AudioSource>();
-            audioSource.clip = Microphone.Start(Microphone.devices[0], true, 10, 44100);
+            audioSource.clip = Microphone.Start(Microphone.devices[0], true, 10, 44100);  // third argument restrict the duration of the audio to 10 seconds 
             if (SaveButton == null)
             {
                 return;
             }
             SaveButton.onClick.AddListener(() =>
             {
-                Save();
+                Save(fileName);
             });
         }
 
@@ -68,7 +68,7 @@ namespace Recorder
         {
             if (Input.GetKeyDown(keyCode))
             {
-                Save();
+                Save(fileName);
             }
         }
 
@@ -76,7 +76,7 @@ namespace Recorder
 
         #region Recorder Functions
 
-        public static void Save(string fileName = "test")
+        public static void Save(string fileName="test") 
         {
 
             while (!(Microphone.GetPosition(null) > 0)) { }
@@ -91,11 +91,15 @@ namespace Recorder
             try
             {
                 WriteWAVFile(audioSource.clip, filePath);
-                Debug.Log("File Saved Successfully at StreamingAssets/" + fileName + ".wav");
+                Debug.Log("File Saved Successfully at: "+filePath);
             }
             catch (DirectoryNotFoundException)
             {
                 Debug.LogError("Please, Create a StreamingAssets Directory in the Assets Folder");
+            }
+            catch( Exception e )
+            {
+            Debug.Log(e.Message);    //check for other Exceptions 
             }
            
         }
