@@ -60,7 +60,7 @@ namespace Recorder
             }
             SaveButton.onClick.AddListener(() =>
             {
-                Save(fileName="test");
+                Save(fileName);
             });
         }
 
@@ -76,7 +76,7 @@ namespace Recorder
 
         #region Recorder Functions
 
-        public static void Save(string fileName) 
+        public static void Save(string fileName="test") 
         {
 
             while (!(Microphone.GetPosition(null) > 0)) { }
